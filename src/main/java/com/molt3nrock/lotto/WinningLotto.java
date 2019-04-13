@@ -1,8 +1,5 @@
 package com.molt3nrock.lotto;
 
-import java.util.List;
-import java.util.stream.Stream;
-
 /**
  * 당첨 번호를 담당하는 객체
  */
@@ -31,13 +28,8 @@ class WinningLotto {
      * (합한 숫자들의 크기) - (중복 제거된 숫자들의 크기) = (N(DUP)x2 + N(UNI)) - (N(DUP) + N(UNI)) = N(DUP)
      */
     Rank match(Lotto userLotto) {
-        List<Integer> winningNumbers = this.lotto.getNumbers();
-        List<Integer> userNumbers = userLotto.getNumbers();
-        int totalCount = winningNumbers.size() + userNumbers.size();
-        int uniqueCount = (int) Stream.concat(winningNumbers.stream(), userNumbers.stream())
-            .distinct()
-            .count();
-        return Rank.valueOf(totalCount - uniqueCount,
-                            userNumbers.stream().anyMatch(i -> i.equals(this.bonusNo)));
+        int count = userLotto.howManyMatches(this.lotto);
+        boolean hasBonus = userLotto.has(this.bonusNo);
+        return Rank.valueOf(count, hasBonus);
     }
 }
