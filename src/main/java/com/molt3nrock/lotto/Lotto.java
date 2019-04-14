@@ -30,13 +30,13 @@ public class Lotto {
 
     private int howManyMatches(List<Integer> numbers) {
         int count = 0;
-        for (Integer i: numbers) {
+        for (Integer i : numbers) {
             count += this.numbers.contains(i) ? 1 : 0;
         }
         return count;
     }
 
     boolean has(Integer number) {
-        return numbers.stream().anyMatch(i ->  i.equals(number));
+        return numbers.stream().anyMatch(i -> i.equals(number));
     }
 }
